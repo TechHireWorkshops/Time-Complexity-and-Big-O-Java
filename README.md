@@ -61,10 +61,10 @@ Let's look at some examples.
 To say an algorithm takes constant (or `O(1)`) time means: no matter how big the input(s) are, the computer will do basically the same amount of work to perform the algorithm on them.
 
 
-```javascript
-const isFirstUndefined = numArray => {
-  let first = numArray[0];					       //O(1)
-  return first === undefined;                  //O(1)
+```java
+boolean isFirstUndefined (int[] numArray) {
+  let first = numArray[0];				       //O(1)
+  return first == undefined;                   //O(1)
 }
 
 ```
@@ -77,8 +77,8 @@ To say an algorithm is has a time complexity of O(n) means the the time required
 
 Algorithms that process each input at least once will take at least **O(n)** time.  Loops are a common example.  
 
-```javascript
-const addAll = numArray => {
+```java
+int addAll (int[] numArray) {
   let sum = 1;                                // O(1)
   for (let i = 0; i < numArray.length; i++){  // O(n)
     sum += numArray[i];                       // O(1)
@@ -93,20 +93,20 @@ Following our rules for evaluating complexity, the time complexity of `addAll` i
 
 Nested loops are a common example of O(n<sup>2</sup>) operations.
 
-```javascript
-const addAlltoAll = numArray => {
+```java
+int addAlltoAll (int[] numArray) {
   let sum = 1;                                  // O(1)
-  for (let i = 0; i < numArray.length; i++) {   // n times:
-    sum += numArray[i];
-    for (let j = 0; j < numArray.length; i++) { // n times:
-      sum += numArray[j];
+  for (let i = 0; i < numArray.length; i++) {   // O(n)
+    sum += numArray[i];						    // O(1)
+    for (let j = 0; j < numArray.length; i++) { // O(n)
+      sum += numArray[j];					    // O(1)
     }
   }
   return sum;                                   // O(1)
 }
 ```
 
-Here, we have `O(1) + O(n) * O(n) + O(1)`, simplifying to `O(n<sup>2</sup>) + 2*O(1)`.  We select our largest power and end up with `O(n<sup>2</sup>)`
+Here, we have `O(1) + O(n) * O(n) + O(n*1) + O(n*n*1) + O(1)`, simplifying to `O(n^2) + O(n^2) + O(n) + 2*O(1)`.  We select our largest power and end up with `O(n^2)`
 
 
 #### O(log(n)) (logarithmic time)
@@ -119,24 +119,20 @@ These algorithms take longer for larger inputs, but the rate of increase is very
 
 A common example is finding an item using a binary search! Here's some pseudocode:
 
-```javascript
-const binary_search = (array, value) => {
+```java
+int binary_search (int[] array, int value) {
   let low=0
   let high = array.size - 1
   if (high < low) return false;
-  // if high and low overlap, nothing was found.
   let mid = low + ((high - low) / 2);
-  // determine the middle element.
 
   if (array[mid] > value) {
     return binary_search(array, value, low, mid-1);
   } else if (array[mid] < value) {
     return binary_search(array, value, mid+1, high);
   } 
-  // split the result in half and search again recursively until we succeed.
   else {
     return mid;
-    // found! 
   }
 }
 ```
@@ -149,63 +145,21 @@ const binary_search = (array, value) => {
 
 ## Exercises!
 Work with your partner and find the worst case time-complexity of each of these algorithms:
+
 #### #1
 
-```javascript
-const wordOccurrence = (word, phrase) => {
-  let result = 0;
-  const array  = phrase.split(' ');
-  for (let i = 0; i < array.length; i++) {
-    if (word.toLowerCase() === array[i].toLowerCase()) {
-      result += 1;
-    }
-  }
-  return result;
+```java
+String bobIsFirst(String[] people) {
+  return people[0] == 'bob';
 }
 ```
 
 #### #2
 
-```javascript
-const bubbleSort = list => {
-  for (let i = 0; i < list.length - 1; i++) {
-    for (let j  = 0; j < list.length - 2; j++) {
-      if (list[j+1] < list[j]) {
-        const temp = list[j];
-        list[j] = list[j+1];
-        list[j+1] = temp;
-      }
-    }
-  }
-  return list;
-}
-```
-
-#### #3
-```javascript
-const factorial = n => {
-  if (n === 0) {
-    return 1;
-  } else {
-    return n * factorial(n-1);
-  }
-}
-```
-
-#### #4
-
-```javascript
-const bobIsFirst = people => {
-  return people[0] == 'bob';
-}
-```
-
-#### #5
-
-```javascript
-const isPalindrome = input => {
-  const stack = [];
-  let output = "";
+```java
+boolean isPalindrome (String input) {
+  char[] stack = [];
+  String output = "";
   for (let i = 0; i < input.length; i++){
     stack.push(input[i]);
   }
@@ -216,35 +170,62 @@ const isPalindrome = input => {
 }
 ```
 
-#### #6
-```javascript
-const sumOfDivisors = n => {
-  let result = 0;
-  let i = 1;
+#### #3
+```java
+int sumOfDivisors (int n) {
+  int result = 0;
+  int i = 1;
   while (i < n) {
     if (n % i == 0) {
       result += i;
+      i++;
     }
   }
   return result;
 }
 ```
 
-#### #7
-```javascript
-const printAllNumbersThenSumPairs = numArray => {
-  numArray.forEach(num => console.log(num));
-  numArray.forEach((num, index)=>{
-    if (index < numArray.length - 1) {
-      console.log(num + numArray[index+1]);
+#### #4
+```java
+int sumPairs (int[] numArray) {
+  numArray.for(int i = 0;i<numArray.length;i++){
+    if (i < numArray.length - 1) {
+      System.out.println(numArray[i] + numArray[i+1]);
     }
   });
 }
 ```
 
-#### #8
-```javascript
-const isPrime = num => {
+#### #5
+```java
+  void bubbleSort(int arr[]) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+      for (int j = 0; j < n - i - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          int temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
+        }
+      }
+    }
+  }
+```
+
+#### #6
+```java
+int factorial (int n) {
+  if (n === 0) {
+    return 1;
+  } else {
+    return n * factorial(n-1);
+  }
+}
+```
+
+#### #7
+```java
+boolean isPrime(int num){
   if (num == 1 || num == 2) {
     return false;
   }
@@ -254,6 +235,20 @@ const isPrime = num => {
     }
   }
   return true;
+}
+```
+
+#### #8
+```java
+int wordOccurrence (String word, String phrase) {
+  int result = 0;
+  String[] array  = phrase.split(' ', 0);
+  for (let i = 0; i < array.length; i++) {
+    if (word.toLowerCase() == array[i].toLowerCase()) {
+      result += 1;
+    }
+  }
+  return result;
 }
 ```
 
@@ -270,9 +265,9 @@ In the case of numbers, the size of the number doesn't matter, 2 and 1,000,000 t
 
 Example of O(1) space complexity
 
-``` jsx
-function sum(arr) {
-    let total = 0;
+``` java
+int sum(int[] arr) {
+    int total = 0;
     for (let i = 0; i < arr.length; i++) {
         total += arr[i];
     }
@@ -282,12 +277,12 @@ function sum(arr) {
 
 Example of O(n) space complexity
 
-``` jsx
-function double(arr) {
-    let newArr = [];
+``` java
+int[] double(int[] arr) {
+    int[] newArray = new int[arr.length];
     for (let i = 0; i < arr.length; i++) {
-    	 let current = arr[i]
-        newArray.push(2 * arr[i]);
+    	 int current = arr[i]
+        newArray[i]=(2 * arr[i]);
     }
     return newArray;
 }
