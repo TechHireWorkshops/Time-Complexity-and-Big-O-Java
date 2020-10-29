@@ -43,7 +43,7 @@ Some operations are constant, meaning they have a Big O of O(1).  This means tha
 
 - Arithmetic operations are constant
 - Assigning variables is constant
-- Accessing variables, elements in an array, or keys in an object are constant.
+- Accessing variables, elements in an array, or keys in an hash map are constant.
 
 Some operations scale with data, namely:
 
@@ -63,7 +63,7 @@ To say an algorithm takes constant (or `O(1)`) time means: no matter how big the
 
 ```java
 boolean isFirstUndefined (int[] numArray) {
-  let first = numArray[0];				       //O(1)
+  int first = numArray[0];				       //O(1)
   return first == undefined;                   //O(1)
 }
 
@@ -79,7 +79,7 @@ Algorithms that process each input at least once will take at least **O(n)** tim
 
 ```java
 int addAll (int[] numArray) {
-  let sum = 1;                                // O(1)
+  int sum = 0;                                // O(1)
   for (let i = 0; i < numArray.length; i++){  // O(n)
     sum += numArray[i];                       // O(1)
   }
@@ -95,7 +95,7 @@ Nested loops are a common example of O(n<sup>2</sup>) operations.
 
 ```java
 int addAlltoAll (int[] numArray) {
-  let sum = 1;                                  // O(1)
+  int sum = 0;                                  // O(1)
   for (let i = 0; i < numArray.length; i++) {   // O(n)
     sum += numArray[i];						    // O(1)
     for (let j = 0; j < numArray.length; i++) { // O(n)
@@ -121,10 +121,10 @@ A common example is finding an item using a binary search! Here's some pseudocod
 
 ```java
 int binary_search (int[] array, int value) {
-  let low=0
-  let high = array.size - 1
+  int low=0
+  int high = array.size - 1
   if (high < low) return false;
-  let mid = low + ((high - low) / 2);
+  int mid = low + ((high - low) / 2);
 
   if (array[mid] > value) {
     return binary_search(array, value, low, mid-1);
