@@ -43,7 +43,7 @@ Some operations are constant, meaning they have a Big O of O(1).  This means tha
 
 - Arithmetic operations are constant
 - Assigning variables is constant
-- Accessing variables, elements in an array, or keys in an hash map are constant.
+- Accessing variables, elements in an array, or keys in a hash map are constant.
 
 Some operations scale with data, namely:
 
